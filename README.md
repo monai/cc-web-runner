@@ -2,6 +2,8 @@
 
 Closure Compiler web runner
 
+[Download latest release](https://github.com/monai/cc-web-runner/releases)
+
 ## Build
 
 ```bash
