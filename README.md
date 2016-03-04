@@ -10,7 +10,7 @@ Download [latest](https://github.com/monai/cc-web-runner/releases) release.
 mvn clean compile war:war
 ```
 
-Produces Java Servlet 3.0 compatible *war* package that can be deployed on any compatible server, i.e. Tomcat.
+Produces Java Servlet 3.0 compatible *war* package that can be deployed on any compatible server, e.g. Tomcat.
 
 ## Run
 
@@ -63,7 +63,7 @@ Response:
 
 `result` object is directly serialized from [Result](https://github.com/google/closure-compiler/blob/v20160208/src/com/google/javascript/jscomp/Result.java) class.
 
-Add `?debug` query parameter to get exception on error responses.
+Add `?debug` query parameter to get exception object with error response.
 
 ## License
 
