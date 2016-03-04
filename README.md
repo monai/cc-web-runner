@@ -1,6 +1,6 @@
 # cc-web-runner
 
-REST service for Closure Compiler
+Closure Compiler web runner
 
 ## Build
 
