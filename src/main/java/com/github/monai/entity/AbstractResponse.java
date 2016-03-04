@@ -1,5 +1,7 @@
 package com.github.monai.entity;
 
+import com.owlike.genson.annotation.JsonProperty;
+
 public class AbstractResponse {
   public final StatusCode status;
 
@@ -8,7 +10,7 @@ public class AbstractResponse {
     ERROR
   }
 
-  public AbstractResponse(StatusCode status) {
+  public AbstractResponse(@JsonProperty("status") StatusCode status) {
     this.status = status;
   }
 }
