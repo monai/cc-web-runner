@@ -4,6 +4,7 @@ import com.google.javascript.jscomp.CompilerOptions;
 import com.google.javascript.jscomp.SourceFile;
 import com.owlike.genson.annotation.JsonProperty;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CompilerRequest {
@@ -14,8 +15,8 @@ public class CompilerRequest {
   public CompilerRequest(@JsonProperty("options") CompilerOptions options,
                          @JsonProperty("externs") List<SourceFile> externs,
                          @JsonProperty("sources") List<SourceFile> sources) {
-    this.options = options;
-    this.externs = externs;
-    this.sources = sources;
+    this.options = null != options ? options : new CompilerOptions();
+    this.externs = null != externs ? externs : new ArrayList<>();
+    this.sources = null != sources ? sources : new ArrayList<>();
   }
 }
