@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/cc-runner.iml" filepath="$PROJECT_DIR$/cc-runner.iml" />
+      <module fileurl="file://$PROJECT_DIR$/cc-web-runner.iml" filepath="$PROJECT_DIR$/cc-web-runner.iml" />
     </modules>
   </component>
 </project>
