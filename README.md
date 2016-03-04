@@ -20,6 +20,8 @@ Embedded Jetty goal for development.
 
 ## Use
 
+Request:
+
 ```bash
 curl -X POST -H "Content-Type: application/json" -d '{
     "options": {
@@ -35,7 +37,11 @@ curl -X POST -H "Content-Type: application/json" -d '{
     }]
 }
 ' "http://localhost:8080/compile"
+```
 
+Response:
+
+```bash
 {
   "result":{
     "debugLog":"",
