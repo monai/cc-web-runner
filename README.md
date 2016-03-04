@@ -1,8 +1,8 @@
 # cc-web-runner
 
-Closure Compiler web runner
+[Closure Compiler](https://developers.google.com/closure/compiler/) web runner.
 
-[Download latest release](https://github.com/monai/cc-web-runner/releases)
+Download [latest](https://github.com/monai/cc-web-runner/releases) release.
 
 ## Build
 
