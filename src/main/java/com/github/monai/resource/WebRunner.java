@@ -1,11 +1,10 @@
 package com.github.monai.resource;
 
 
-import com.github.monai.VoidErrorManager;
 import com.github.monai.entity.CompilerRequest;
 import com.github.monai.entity.CompilerResponse;
+import com.google.javascript.jscomp.*;
 import com.google.javascript.jscomp.Compiler;
-import com.google.javascript.jscomp.Result;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -25,5 +24,13 @@ public class WebRunner {
     String source = compiler.toSource();
 
     return new CompilerResponse(result, source);
+  }
+
+  class VoidErrorManager extends BasicErrorManager {
+    @Override
+    public void println(CheckLevel level, JSError error) {}
+
+    @Override
+    protected void printSummary() {}
   }
 }
