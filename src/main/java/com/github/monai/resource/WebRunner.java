@@ -1,22 +1,30 @@
 package com.github.monai.resource;
 
 
-import com.github.monai.VoidErrorManager;
 import com.github.monai.entity.CompilerRequest;
 import com.github.monai.entity.CompilerResponse;
+import com.google.javascript.jscomp.*;
 import com.google.javascript.jscomp.Compiler;
-import com.google.javascript.jscomp.Result;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.util.HashMap;
 
 @Path("/")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class WebRunner {
+  @GET
+  @Path("/status")
+  public HashMap<String, Object> status() {
+    HashMap<String, Object> out = new HashMap<>();
+
+    out.put("options", new CompilerOptions());
+    out.put("compilerVersion", Compiler.getReleaseVersion());
+
+    return out;
+  }
+
   @POST
   @Path("/compile")
   public CompilerResponse compile(CompilerRequest request) {
@@ -25,5 +33,13 @@ public class WebRunner {
     String source = compiler.toSource();
 
     return new CompilerResponse(result, source);
+  }
+
+  class VoidErrorManager extends BasicErrorManager {
+    @Override
+    public void println(CheckLevel level, JSError error) {}
+
+    @Override
+    protected void printSummary() {}
   }
 }

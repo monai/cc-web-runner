@@ -1,6 +1,8 @@
 # cc-web-runner
 
-Closure Compiler web runner
+[Closure Compiler](https://developers.google.com/closure/compiler/) web runner.
+
+Download [latest](https://github.com/monai/cc-web-runner/releases) release.
 
 ## Build
 
@@ -8,7 +10,7 @@ Closure Compiler web runner
 mvn clean compile war:war
 ```
 
-Produces Java Servlet 3.0 compatible *war* package that can be deployed on any compatible server, i.e. Tomcat.
+Produces Java Servlet 3.0 compatible *war* package that can be deployed on any compatible server, e.g. Tomcat.
 
 ## Run
 
@@ -57,11 +59,11 @@ Response:
 }
 ```
 
-Options object is directly deserialized to [CompilerOptions](https://github.com/google/closure-compiler/blob/v20160208/src/com/google/javascript/jscomp/CompilerOptions.java) class.
+`options` object is directly deserialized to [CompilerOptions](https://github.com/google/closure-compiler/blob/v20160208/src/com/google/javascript/jscomp/CompilerOptions.java) class.
 
-Result object is directly serialized from [Result](https://github.com/google/closure-compiler/blob/v20160208/src/com/google/javascript/jscomp/Result.java) class.
+`result` object is directly serialized from [Result](https://github.com/google/closure-compiler/blob/v20160208/src/com/google/javascript/jscomp/Result.java) class.
 
-Add `?debug` query parameter to get exception on error responses.
+Add `?debug` query parameter to get exception object with error response.
 
 ## License
 

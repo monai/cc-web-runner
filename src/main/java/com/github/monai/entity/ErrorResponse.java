@@ -13,9 +13,12 @@ public class ErrorResponse extends AbstractResponse {
     super(StatusCode.ERROR);
 
     String message = ex.getMessage();
-    this.message = (null != message)
-            ? message
-            : Response.Status.INTERNAL_SERVER_ERROR.toString();
+    if (null != message) {
+      this.message = message;
+    } else {
+      Response.Status statusInfo = Response.Status.INTERNAL_SERVER_ERROR;
+      this.message = "HTTP " + statusInfo.getStatusCode() + ' ' + statusInfo.getReasonPhrase();
+    }
     this.exception = debug ? ex : null;
   }
 }

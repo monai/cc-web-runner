@@ -6,7 +6,7 @@
     <groupId>com.github.monai</groupId>
     <artifactId>cc-web-runner</artifactId>
     <packaging>war</packaging>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <name>cc-runner</name>
 
     <properties>
@@ -87,19 +87,4 @@
             <version>${closure-compiler.version}</version>
         </dependency>
     </dependencies>
-
-    <profiles>
-        <profile>
-            <id>release</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-assembly-plugin</artifactId>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
-
 </project>
