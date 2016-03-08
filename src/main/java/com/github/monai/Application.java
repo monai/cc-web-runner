@@ -32,7 +32,9 @@ public class Application extends ResourceConfig {
   }
 
   public static void main(String[] args) throws Exception {
-    Server server = new Server(8080);
+    int port = Integer.parseInt(System.getProperty("port", "8080"));
+
+    Server server = new Server(port);
     Application app = new Application();
 
     ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
