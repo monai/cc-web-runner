@@ -8,10 +8,12 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.ext.ExceptionMapper;
+import javax.ws.rs.ext.Provider;
 
 import static javax.ws.rs.core.Response.Status;
 import static javax.ws.rs.core.Response.status;
 
+@Provider
 public class GenericExceptionMapper implements ExceptionMapper<Throwable> {
   @Context
   UriInfo ui;
