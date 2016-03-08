@@ -7,18 +7,16 @@ Download [latest](https://github.com/monai/cc-web-runner/releases) release.
 ## Build
 
 ```bash
-mvn clean compile war:war
+mvn clean compile package
 ```
 
-Produces Java Servlet 3.0 compatible *war* package that can be deployed on any compatible server, e.g. Tomcat.
+Produces standalone JAR.
 
 ## Run
 
 ```bash
-mvn jetty:run
+java -jar target/cc-web-runner-1.0.3-SNAPSHOT.jar
 ```
-
-Embedded Jetty goal for development.
 
 ## Use
 
