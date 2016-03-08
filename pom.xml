@@ -5,7 +5,7 @@
 
     <groupId>com.github.monai</groupId>
     <artifactId>cc-web-runner</artifactId>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
     <version>1.0.2-SNAPSHOT</version>
     <name>cc-runner</name>
 
@@ -16,7 +16,7 @@
         <closure-compiler.version>v20160208</closure-compiler.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <compiler-plugin.version>3.5.1</compiler-plugin.version>
-        <jetty-plugin.version>9.3.7.v20160115</jetty-plugin.version>
+        <jetty.version>9.3.7.v20160115</jetty.version>
         <properties-plugin.version>1.0.0</properties-plugin.version>
         <war-plugin.version>2.6</war-plugin.version>
     </properties>
@@ -37,7 +37,7 @@
             <plugin>
                 <groupId>org.eclipse.jetty</groupId>
                 <artifactId>jetty-maven-plugin</artifactId>
-                <version>${jetty-plugin.version}</version>
+                <version>${jetty.version}</version>
             </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
@@ -45,11 +45,18 @@
                 <version>${properties-plugin.version}</version>
             </plugin>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-war-plugin</artifactId>
-                <version>${war-plugin.version}</version>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.4.0</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
+                    </execution>
+                </executions>
                 <configuration>
-                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                    <mainClass>com.github.monai.Application</mainClass>
                 </configuration>
             </plugin>
         </plugins>
@@ -75,6 +82,25 @@
         <dependency>
             <groupId>org.glassfish.jersey.containers</groupId>
             <artifactId>jersey-container-servlet</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.containers</groupId>
+            <artifactId>jersey-container-jetty-http</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-server</artifactId>
+            <version>${jetty.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-servlet</artifactId>
+            <version>${jetty.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-util</artifactId>
+            <version>${jetty.version}</version>
         </dependency>
         <dependency>
             <groupId>com.owlike</groupId>
