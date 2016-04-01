@@ -8,7 +8,9 @@ import com.google.javascript.jscomp.Compiler;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 
 @Path("/")
 @Consumes(MediaType.APPLICATION_JSON)
@@ -16,10 +18,13 @@ import java.util.HashMap;
 public class WebRunner {
   @GET
   @Path("/status")
-  public HashMap<String, Object> status() {
+  public HashMap<String, Object> status() throws IOException {
     HashMap<String, Object> out = new HashMap<>();
 
-    out.put("options", new CompilerOptions());
+    CompilerOptions options = new CompilerOptions();
+
+    out.put("externs", CommandLineRunner.getBuiltinExterns(options));
+    out.put("options", options);
     out.put("compilerVersion", Compiler.getReleaseVersion());
 
     return out;
@@ -27,9 +32,12 @@ public class WebRunner {
 
   @POST
   @Path("/compile")
-  public CompilerResponse compile(CompilerRequest request) {
+  public CompilerResponse compile(CompilerRequest request) throws IOException {
+    List<SourceFile> externs = CommandLineRunner.getBuiltinExterns(request.options);
+    externs.addAll(request.externs);
+
     Compiler compiler = new Compiler(new VoidErrorManager());
-    Result result = compiler.compile(request.externs, request.sources, request.options);
+    Result result = compiler.compile(externs, request.sources, request.options);
     String source = compiler.toSource();
 
     return new CompilerResponse(result, source);
