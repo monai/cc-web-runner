@@ -4,6 +4,7 @@ package com.github.monai.resource;
 import com.github.monai.Application;
 import com.github.monai.entity.CompilerRequest;
 import com.github.monai.entity.CompilerResponse;
+import com.github.monai.entity.Optimizations;
 import com.google.javascript.jscomp.*;
 import com.google.javascript.jscomp.Compiler;
 
@@ -40,8 +41,28 @@ public class WebRunner {
   @POST
   @Path("/compile")
   public CompilerResponse compile(CompilerRequest request) throws IOException {
-    CompilerOptions.Environment env = request.options.getEnvironment();
-    request.externs.addAll(Application.defaultExterns.externs.get(env));
+    Optimizations optim = request.optimizations;
+
+    if (null != optim && null != optim.level) {
+      optim.level.setOptionsForCompilationLevel(request.options);
+
+      if (CompilationLevel.ADVANCED_OPTIMIZATIONS == optim.level) {
+        CompilerOptions.Environment env = request.options.getEnvironment();
+        request.externs.addAll(Application.defaultExterns.externs.get(env));
+      }
+
+      if (optim.debug) {
+        optim.level.setDebugOptionsForCompilationLevel(request.options);
+      }
+
+      if (optim.typeBased) {
+        optim.level.setTypeBasedOptimizationOptions(request.options);
+      }
+
+      if (optim.wrappedOutput) {
+        optim.level.setWrappedOutputOptimizations(request.options);
+      }
+    }
 
     Compiler compiler = new Compiler(new VoidErrorManager());
     Result result = compiler.compile(request.externs, request.sources, request.options);
