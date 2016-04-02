@@ -1,6 +1,7 @@
 package com.github.monai.resource;
 
 
+import com.github.monai.Application;
 import com.github.monai.entity.CompilerRequest;
 import com.github.monai.entity.CompilerResponse;
 import com.google.javascript.jscomp.*;
@@ -10,7 +11,6 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
 
 @Path("/")
 @Consumes(MediaType.APPLICATION_JSON)
@@ -40,11 +40,11 @@ public class WebRunner {
   @POST
   @Path("/compile")
   public CompilerResponse compile(CompilerRequest request) throws IOException {
-    List<SourceFile> externs = CommandLineRunner.getBuiltinExterns(request.options);
-    externs.addAll(request.externs);
+    CompilerOptions.Environment env = request.options.getEnvironment();
+    request.externs.addAll(Application.defaultExterns.externs.get(env));
 
     Compiler compiler = new Compiler(new VoidErrorManager());
-    Result result = compiler.compile(externs, request.sources, request.options);
+    Result result = compiler.compile(request.externs, request.sources, request.options);
     String source = compiler.toSource();
 
     return new CompilerResponse(result, source);

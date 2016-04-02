@@ -13,9 +13,22 @@ import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.servlet.ServletContainer;
 
 import javax.ws.rs.ApplicationPath;
+import java.io.IOException;
 
 @ApplicationPath("/")
 public class Application extends ResourceConfig {
+  public final static DefaultExterns defaultExterns;
+
+  static {
+    DefaultExterns externs = null;
+    try {
+      externs = new DefaultExterns();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    defaultExterns = externs;
+  }
+
   public Application() {
     Genson genson = new GensonBuilder()
             .setSkipNull(true)
