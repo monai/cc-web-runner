@@ -19,10 +19,19 @@ import java.util.HashMap;
 public class WebRunner {
   @GET
   @Path("/status")
-  public HashMap<String, Object> status() throws IOException {
+  public HashMap<String, Object> status(@QueryParam("level") CompilationLevel level,
+                                        @QueryParam("debug") @DefaultValue("false") boolean debug,
+                                        @QueryParam("typeBased") @DefaultValue("false") boolean typeBased,
+                                        @QueryParam("wrappedOutput") @DefaultValue("false") boolean wrappedOutput) throws IOException {
     HashMap<String, Object> out = new HashMap<>();
 
-    out.put("options", new CompilerOptions());
+    CompilerOptions options = new CompilerOptions();
+    if (null != level) {
+      Optimizations optim = new Optimizations(level, debug, typeBased, wrappedOutput);
+      applyOptimizations(optim, options);
+    }
+
+    out.put("options", options);
     out.put("compilerVersion", Compiler.getReleaseVersion());
 
     return out;
@@ -44,24 +53,12 @@ public class WebRunner {
     Optimizations optim = request.optimizations;
 
     if (null != optim && null != optim.level) {
-      optim.level.setOptionsForCompilationLevel(request.options);
-
       if (CompilationLevel.ADVANCED_OPTIMIZATIONS == optim.level) {
         CompilerOptions.Environment env = request.options.getEnvironment();
         request.externs.addAll(Application.defaultExterns.externs.get(env));
       }
 
-      if (optim.debug) {
-        optim.level.setDebugOptionsForCompilationLevel(request.options);
-      }
-
-      if (optim.typeBased) {
-        optim.level.setTypeBasedOptimizationOptions(request.options);
-      }
-
-      if (optim.wrappedOutput) {
-        optim.level.setWrappedOutputOptimizations(request.options);
-      }
+      applyOptimizations(optim, request.options);
     }
 
     Compiler compiler = new Compiler(new VoidErrorManager());
@@ -69,6 +66,22 @@ public class WebRunner {
     String source = compiler.toSource();
 
     return new CompilerResponse(result, source);
+  }
+
+  private void applyOptimizations(Optimizations optim, CompilerOptions options) {
+    optim.level.setOptionsForCompilationLevel(options);
+
+    if (optim.debug) {
+      optim.level.setDebugOptionsForCompilationLevel(options);
+    }
+
+    if (optim.typeBased) {
+      optim.level.setTypeBasedOptimizationOptions(options);
+    }
+
+    if (optim.wrappedOutput) {
+      optim.level.setWrappedOutputOptimizations(options);
+    }
   }
 
   class VoidErrorManager extends BasicErrorManager {
