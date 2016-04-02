@@ -21,11 +21,18 @@ public class WebRunner {
   public HashMap<String, Object> status() throws IOException {
     HashMap<String, Object> out = new HashMap<>();
 
-    CompilerOptions options = new CompilerOptions();
-
-    out.put("externs", CommandLineRunner.getBuiltinExterns(options));
-    out.put("options", options);
+    out.put("options", new CompilerOptions());
     out.put("compilerVersion", Compiler.getReleaseVersion());
+
+    return out;
+  }
+
+  @GET
+  @Path("/externs")
+  public HashMap<String, Object> externs() throws IOException {
+    HashMap<String, Object> out = new HashMap<>();
+
+    out.put("externs", CommandLineRunner.getBuiltinExterns(new CompilerOptions()));
 
     return out;
   }
