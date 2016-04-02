@@ -14,11 +14,9 @@
         <jersey.version>2.22.2</jersey.version>
         <genson.version>1.3</genson.version>
         <closure-compiler.version>v20160208</closure-compiler.version>
-        <plugin.war.version>2.6</plugin.war.version>
         <plugin.exec.version>1.4.0</plugin.exec.version>
         <plugin.shade.version>2.4.3</plugin.shade.version>
         <plugin.compiler.version>3.5.1</plugin.compiler.version>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <main.class>com.github.monai.Application</main.class>
     </properties>
 
@@ -33,11 +31,6 @@
                     <source>${java.version}</source>
                     <target>${java.version}</target>
                 </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.eclipse.jetty</groupId>
-                <artifactId>jetty-maven-plugin</artifactId>
-                <version>${jetty.version}</version>
             </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
