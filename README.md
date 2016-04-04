@@ -15,7 +15,7 @@ Produces standalone JAR.
 ## Run
 
 ```bash
-java -jar target/cc-web-runner-1.0.3-SNAPSHOT.jar
+java -jar target/cc-web-runner-1.0.4-SNAPSHOT.jar
 ```
 
 ## Use
