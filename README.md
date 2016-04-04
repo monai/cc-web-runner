@@ -35,53 +35,58 @@ curl -X POST -H "Content-Type: application/json" -d '{
 ' "http://localhost:8080/compile"
 ```
 
+## Endpoints
+
+Request and response content types are `application/json`.
+
+### GET /status
+
+Returns default options with given optimizations and Closure Compiler version.
+
+Query parameters:
+
+- `level` String - is of type [CompilationLevel](https://github.com/google/closure-compiler/blob/29bbd198f0bf4967e4f406674b3eaf302a1f16a4/src/com/google/javascript/jscomp/CompilationLevel.java), compilation level
+- `debug` Boolean - whether to call `setDebugOptionsForCompilationLevel`
+- `typeBased` Boolean - whether to call `setTypeBasedOptimizationOptions`
+- `wrappedOutput` Boolean - whether to call `setWrappedOutputOptimizations`
+
 Response:
 
-```bash
-{
-  "result":{
-    "debugLog":"",
-    "errors":[
-    ],
-    "success":true,
-    "variableMap":{
-      "newNameToOriginalNameMap":{
-      },
-      "originalNameToNewNameMap":{
-      }
-    },
-    "warnings":[
-    ]
-  },
-  "source":"console.log(function(){return 33});",
-  "status":"SUCCESS"
-}
-```
+- `options` Object - is of type [CompilerOptions](https://github.com/google/closure-compiler/blob/v20160208/src/com/google/javascript/jscomp/CompilerOptions.java), compiler options
+- `compilerVersions` String - Closure Compiler version
 
-## Request
+### GET /externs
 
-- `externs` - array of file objects
-- `sources` - array of file objects
+Returns default externs.
+
+Response:
+
+- `externs` Array - is of type List&lt;[SourceFile](https://github.com/google/closure-compiler/blob/master/src/com/google/javascript/jscomp/SourceFile.java)&gt;, array of extern files
+
+### POST /compile
+
+Request:
+
+- `externs` Array - `[{ fileName: String, code: String }]`, array of extern files
+- `sources` Array - `[{ fileName: String, code: String }]`, array of source files to compile
 - `optimizations`
-  - `level` - is of [CompilationLevel](https://github.com/google/closure-compiler/blob/29bbd198f0bf4967e4f406674b3eaf302a1f16a4/src/com/google/javascript/jscomp/CompilationLevel.java) type
-  - `debug` - true|false, whether to call `setDebugOptionsForCompilationLevel`
-  - `typeBased` - true|false, whether to call `setTypeBasedOptimizationOptions`
-  - `wrappedOutput` - true|false, whether to call `setWrappedOutputOptimizations`
-- `options` - directly deserialized to [CompilerOptions](https://github.com/google/closure-compiler/blob/v20160208/src/com/google/javascript/jscomp/CompilerOptions.java) class
+  - `level` String - is of type [CompilationLevel](https://github.com/google/closure-compiler/blob/29bbd198f0bf4967e4f406674b3eaf302a1f16a4/src/com/google/javascript/jscomp/CompilationLevel.java), compilation level
+  - `debug` Boolean - whether to call `setDebugOptionsForCompilationLevel`
+  - `typeBased` Boolean - whether to call `setTypeBasedOptimizationOptions`
+  - `wrappedOutput` Boolean - whether to call `setWrappedOutputOptimizations`
+- `options` Object - is of type [CompilerOptions](https://github.com/google/closure-compiler/blob/v20160208/src/com/google/javascript/jscomp/CompilerOptions.java), compiler options
 
-File object
+Query parameters:
 
-- `fileName` - file name
-- `code` - file content
+- `?debug` - whether return error error messages.
 
-Add `?debug` query parameter to get exception object with error response.
+Response:
 
-## Response
-
-- `result` - directly serialized from [Result](https://github.com/google/closure-compiler/blob/v20160208/src/com/google/javascript/jscomp/Result.java) class
-- `source` - compiled source
-- `status` - SUCCESS|ERROR
-- `message` - error message if status is 'ERROR'
+- `result` Object - is of type [Result](https://github.com/google/closure-compiler/blob/v20160208/src/com/google/javascript/jscomp/Result.java), compilations results
+- `source` String - compiled source
+- `status` String - SUCCESS|ERROR
+- `message` String - error message if status is 'ERROR'
+- `exception` Object - is of type Throwable, occurred exception
 
 ## License
 
