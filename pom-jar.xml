@@ -6,18 +6,15 @@
     <groupId>com.github.monai</groupId>
     <artifactId>cc-web-runner-standalone</artifactId>
     <packaging>jar</packaging>
-    <version>1.0-SNAPSHOT</version>
 
     <parent>
         <groupId>com.github.monai</groupId>
         <artifactId>cc-web-runner-parent</artifactId>
         <version>1.0-SNAPSHOT</version>
-        <relativePath>pom.xml</relativePath>
     </parent>
 
     <properties>
         <plugin.shade.version>2.4.3</plugin.shade.version>
-        <main.class>com.github.monai.Application</main.class>
     </properties>
 
     <build>
