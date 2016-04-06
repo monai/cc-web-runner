@@ -7,15 +7,18 @@ Download [latest](https://github.com/monai/cc-web-runner/releases) release.
 ## Build
 
 ```bash
-mvn clean compile package
+mvn compile package
 ```
 
-Produces standalone JAR.
+Produces 2 artifacts:
+
+- WAR archive that can be deployed on servlet container
+- Standalone executable JAR archive
 
 ## Run
 
 ```bash
-java -jar target/cc-web-runner-1.0.4-SNAPSHOT.jar
+java -jar target/cc-web-runner-standalone-1.0-SNAPSHOT.jar
 ```
 
 ## Use
