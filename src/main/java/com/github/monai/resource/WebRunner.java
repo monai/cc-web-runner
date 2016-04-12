@@ -42,7 +42,8 @@ public class WebRunner {
   public HashMap<String, Object> externs() throws IOException {
     HashMap<String, Object> out = new HashMap<>();
 
-    out.put("externs", CommandLineRunner.getBuiltinExterns(new CompilerOptions()));
+    CompilerOptions.Environment environment = new CompilerOptions().getEnvironment();
+    out.put("externs", CommandLineRunner.getBuiltinExterns(environment));
 
     return out;
   }
@@ -84,7 +85,7 @@ public class WebRunner {
     }
   }
 
-  class VoidErrorManager extends BasicErrorManager {
+  private class VoidErrorManager extends BasicErrorManager {
     @Override
     public void println(CheckLevel level, JSError error) {}
 
