@@ -6,18 +6,16 @@
     <groupId>com.github.monai</groupId>
     <artifactId>cc-web-runner</artifactId>
     <packaging>war</packaging>
-    <version>1.0.4</version>
 
     <parent>
         <groupId>com.github.monai</groupId>
         <artifactId>cc-web-runner-parent</artifactId>
-        <version>1.0.4</version>
+        <version>1.0.5</version>
         <relativePath>pom.xml</relativePath>
     </parent>
 
     <properties>
         <plugin.war.version>2.6</plugin.war.version>
-        <main.class>com.github.monai.Application</main.class>
     </properties>
 
     <build>

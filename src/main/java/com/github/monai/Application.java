@@ -31,7 +31,6 @@ public class Application extends ResourceConfig {
 
   public Application() {
     Genson genson = new GensonBuilder()
-            .setSkipNull(true)
             .useIndentation(true)
             .useConstructorWithArguments(true)
             .withConverters(new CharsetConverter())
