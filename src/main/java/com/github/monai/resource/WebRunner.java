@@ -19,22 +19,27 @@ import java.util.HashMap;
 public class WebRunner {
   @GET
   @Path("/status")
-  public HashMap<String, Object> status(@QueryParam("level") CompilationLevel level,
+  public HashMap<String, Object> status() {
+    HashMap<String, Object> out = new HashMap<>();
+
+    out.put("compilerVersion", Compiler.getReleaseVersion());
+
+    return out;
+  }
+
+  @GET
+  @Path("/options")
+  public CompilerOptions options(@QueryParam("level") CompilationLevel level,
                                         @QueryParam("debug") @DefaultValue("false") boolean debug,
                                         @QueryParam("typeBased") @DefaultValue("false") boolean typeBased,
                                         @QueryParam("wrappedOutput") @DefaultValue("false") boolean wrappedOutput) throws IOException {
-    HashMap<String, Object> out = new HashMap<>();
-
     CompilerOptions options = new CompilerOptions();
     if (null != level) {
       Optimizations optim = new Optimizations(level, debug, typeBased, wrappedOutput);
       applyOptimizations(optim, options);
     }
 
-    out.put("options", options);
-    out.put("compilerVersion", Compiler.getReleaseVersion());
-
-    return out;
+    return options;
   }
 
   @GET
