@@ -22,6 +22,7 @@ public class WebRunner {
   public HashMap<String, Object> status() {
     HashMap<String, Object> out = new HashMap<>();
 
+    out.put("version", System.getProperty("cc-web-runner.version"));
     out.put("compilerVersion", Compiler.getReleaseVersion());
 
     return out;

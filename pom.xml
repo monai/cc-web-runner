@@ -16,6 +16,7 @@
         <closure-compiler.version>v20160315</closure-compiler.version>
         <plugin.exec.version>1.4.0</plugin.exec.version>
         <plugin.compiler.version>3.5.1</plugin.compiler.version>
+        <plugin.properties.version>1.0.0</plugin.properties.version>
         <main.class>com.github.monai.Application</main.class>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
@@ -51,6 +52,26 @@
                 <configuration>
                     <mainClass>${main.class}</mainClass>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>properties-maven-plugin</artifactId>
+                <version>${plugin.properties.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>set-system-properties</goal>
+                        </goals>
+                        <configuration>
+                            <properties>
+                                <property>
+                                    <name>cc-web-runner.version</name>
+                                    <value>${project.version}</value>
+                                </property>
+                            </properties>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
