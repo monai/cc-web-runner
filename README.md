@@ -44,11 +44,10 @@ Request and response content types are `application/json`.
 
 ### GET /status
 
-Returns cc-web-runner and Closure Compiler versions.
+Returns Closure Compiler versions.
 
 Response:
 
-- `version` String - cc-web-runner version
 - `compilerVersions` String - Closure Compiler version
 
 ### GET /options
