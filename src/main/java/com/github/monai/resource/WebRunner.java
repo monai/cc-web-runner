@@ -30,17 +30,21 @@ public class WebRunner {
 
   @GET
   @Path("/options")
-  public CompilerOptions options(@QueryParam("level") CompilationLevel level,
+  public HashMap<String, Object> options(@QueryParam("level") CompilationLevel level,
                                         @QueryParam("debug") @DefaultValue("false") boolean debug,
                                         @QueryParam("typeBased") @DefaultValue("false") boolean typeBased,
                                         @QueryParam("wrappedOutput") @DefaultValue("false") boolean wrappedOutput) throws IOException {
+    HashMap<String, Object> out = new HashMap<>();
+
     CompilerOptions options = new CompilerOptions();
     if (null != level) {
       Optimizations optim = new Optimizations(level, debug, typeBased, wrappedOutput);
       applyOptimizations(optim, options);
     }
 
-    return options;
+    out.put("options", options);
+
+    return out;
   }
 
   @GET
