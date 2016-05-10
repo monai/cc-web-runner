@@ -44,7 +44,16 @@ Request and response content types are `application/json`.
 
 ### GET /status
 
-Returns default options with given optimizations and Closure Compiler version.
+Returns cc-web-runner and Closure Compiler versions.
+
+Response:
+
+- `version` String - cc-web-runner version
+- `compilerVersions` String - Closure Compiler version
+
+### GET /options
+
+Returns default options with given optimizations.
 
 Query parameters:
 
@@ -56,7 +65,6 @@ Query parameters:
 Response:
 
 - `options` Object - is of type [CompilerOptions](https://github.com/google/closure-compiler/blob/v20160208/src/com/google/javascript/jscomp/CompilerOptions.java), compiler options
-- `compilerVersions` String - Closure Compiler version
 
 ### GET /externs
 
