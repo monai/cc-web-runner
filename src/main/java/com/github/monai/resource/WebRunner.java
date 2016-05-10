@@ -19,7 +19,17 @@ import java.util.HashMap;
 public class WebRunner {
   @GET
   @Path("/status")
-  public HashMap<String, Object> status(@QueryParam("level") CompilationLevel level,
+  public HashMap<String, Object> status() {
+    HashMap<String, Object> out = new HashMap<>();
+
+    out.put("compilerVersion", Compiler.getReleaseVersion());
+
+    return out;
+  }
+
+  @GET
+  @Path("/options")
+  public HashMap<String, Object> options(@QueryParam("level") CompilationLevel level,
                                         @QueryParam("debug") @DefaultValue("false") boolean debug,
                                         @QueryParam("typeBased") @DefaultValue("false") boolean typeBased,
                                         @QueryParam("wrappedOutput") @DefaultValue("false") boolean wrappedOutput) throws IOException {
@@ -32,7 +42,6 @@ public class WebRunner {
     }
 
     out.put("options", options);
-    out.put("compilerVersion", Compiler.getReleaseVersion());
 
     return out;
   }
@@ -42,7 +51,8 @@ public class WebRunner {
   public HashMap<String, Object> externs() throws IOException {
     HashMap<String, Object> out = new HashMap<>();
 
-    out.put("externs", CommandLineRunner.getBuiltinExterns(new CompilerOptions()));
+    CompilerOptions.Environment environment = new CompilerOptions().getEnvironment();
+    out.put("externs", CommandLineRunner.getBuiltinExterns(environment));
 
     return out;
   }
@@ -84,7 +94,7 @@ public class WebRunner {
     }
   }
 
-  class VoidErrorManager extends BasicErrorManager {
+  private class VoidErrorManager extends BasicErrorManager {
     @Override
     public void println(CheckLevel level, JSError error) {}
 

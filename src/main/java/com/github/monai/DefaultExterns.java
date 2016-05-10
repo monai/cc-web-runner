@@ -11,15 +11,11 @@ import java.util.List;
 public final class DefaultExterns {
   public final HashMap<CompilerOptions.Environment, List<SourceFile>> externs;
 
-
-  public DefaultExterns() throws IOException {
+  DefaultExterns() throws IOException {
     this.externs = new HashMap<>();
 
     for (CompilerOptions.Environment env : CompilerOptions.Environment.values()) {
-      CompilerOptions options = new CompilerOptions();
-      options.setEnvironment(env);
-
-      List<SourceFile> externs = CommandLineRunner.getBuiltinExterns(options);
+      List<SourceFile> externs = CommandLineRunner.getBuiltinExterns(env);
       this.externs.put(env, externs);
     }
   }

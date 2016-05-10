@@ -11,6 +11,7 @@ import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.servlet.ServletContainer;
+import org.pmw.tinylog.Logger;
 
 import javax.ws.rs.ApplicationPath;
 import java.io.IOException;
@@ -48,10 +49,12 @@ public class Application extends ResourceConfig {
 
     Server server = new Server(port);
     Application app = new Application();
+    AccessLog accessLog = new AccessLog();
 
     ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
     context.setContextPath("/");
     server.setHandler(context);
+    server.setRequestLog(accessLog);
 
     ServletContainer servletContainer = new ServletContainer(app);
     ServletHolder servlet = new ServletHolder(servletContainer);
@@ -65,7 +68,12 @@ public class Application extends ResourceConfig {
       server.start();
       server.join();
     } finally {
-      server.destroy();
+      try {
+        server.destroy();
+      } catch (Throwable error) {
+        Logger.error(error);
+        System.exit(1);
+      }
     }
   }
 }
