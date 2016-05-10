@@ -49,10 +49,12 @@ public class Application extends ResourceConfig {
 
     Server server = new Server(port);
     Application app = new Application();
+    AccessLog accessLog = new AccessLog();
 
     ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
     context.setContextPath("/");
     server.setHandler(context);
+    server.setRequestLog(accessLog);
 
     ServletContainer servletContainer = new ServletContainer(app);
     ServletHolder servlet = new ServletHolder(servletContainer);
