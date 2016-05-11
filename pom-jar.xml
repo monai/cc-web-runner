@@ -37,6 +37,15 @@
                                     <mainClass>${main.class}</mainClass>
                                 </transformer>
                             </transformers>
+                            <artifactSet>
+                                <excludes>
+                                    <exclude>args4j:args4j:jar:</exclude>
+                                    <exclude>com.google.guava:guava:jar:</exclude>
+                                    <exclude>com.google.code.gson:gson:jar:</exclude>
+                                    <exclude>com.google.protobuf:protobuf-java:jar:</exclude>
+                                    <exclude>com.google.code.findbugs:jsr305:jar:</exclude>
+                                </excludes>
+                            </artifactSet>
                         </configuration>
                     </execution>
                 </executions>
