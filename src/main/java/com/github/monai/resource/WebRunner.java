@@ -63,7 +63,8 @@ public class WebRunner {
     Optimizations optim = request.optimizations;
 
     if (null != optim && null != optim.level) {
-      if (CompilationLevel.ADVANCED_OPTIMIZATIONS == optim.level) {
+      if (CompilationLevel.ADVANCED_OPTIMIZATIONS == optim.level
+              || request.options.getLanguageIn().isEs6OrHigher()) {
         CompilerOptions.Environment env = request.options.getEnvironment();
         request.externs.addAll(Application.defaultExterns.externs.get(env));
       }
