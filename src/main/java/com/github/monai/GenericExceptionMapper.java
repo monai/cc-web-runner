@@ -1,6 +1,7 @@
 package com.github.monai;
 
 import com.github.monai.entity.ErrorResponse;
+import org.pmw.tinylog.Logger;
 
 import javax.ws.rs.ClientErrorException;
 import javax.ws.rs.core.Context;
@@ -20,6 +21,7 @@ public class GenericExceptionMapper implements ExceptionMapper<Throwable> {
 
   @Override
   public Response toResponse(Throwable ex) {
+    Logger.error(ex.getCause());
     return status(getStatus(ex))
             .entity(new ErrorResponse(ex, ui.getQueryParameters().containsKey("debug")))
             .type(MediaType.APPLICATION_JSON)
