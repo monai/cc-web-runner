@@ -1,4 +1,6 @@
-.idea
+brass_build
+node_modules
 target
+.idea
 *.iml
 dependency-reduced-pom.xml
