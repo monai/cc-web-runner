@@ -8,6 +8,7 @@ var pkg, options, rpm;
 
 pkg = require('./package.json');
 options = npm.getOptions(pkg);
+options.target = 'noarch-centos-linux';
 options.installDir = '/usr/libexec/'+ options.name;
 options.service = {
   type        : 'systemd',
