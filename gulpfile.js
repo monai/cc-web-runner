@@ -43,26 +43,26 @@ gulp.task('files', [ 'setup' ], function () {
 });
 
 gulp.task('service', [ 'setup' ], function () {
-    return gulp.src('assets/unit.service')
-    .pipe(brass.util.template(options.service))
-    .pipe(brass.util.rename(options.service.name +'.service'))
-    .pipe(gulp.dest(path.join(rpm.buildRoot, '/lib/systemd/system')))
-    .pipe(rpm.files());
+  return gulp.src('assets/unit.service')
+  .pipe(brass.util.template(options.service))
+  .pipe(brass.util.rename(options.service.name +'.service'))
+  .pipe(gulp.dest(path.join(rpm.buildRoot, '/lib/systemd/system')))
+  .pipe(rpm.files());
 });
 
 gulp.task('binary', [ 'setup' ], function () {
-    return gulp.src('assets/cc-web-runner')
-    .pipe(brass.util.template(options))
-    .pipe(gulp.dest(path.join(rpm.buildRoot, '/usr/bin')))
-    .pipe(rpm.files());
+  return gulp.src('assets/cc-web-runner')
+  .pipe(brass.util.template(options))
+  .pipe(gulp.dest(path.join(rpm.buildRoot, '/usr/bin')))
+  .pipe(rpm.files());
 });
 
 gulp.task('binaries', [ 'files' ], npm.binariesTask(pkg, rpm));
 
 gulp.task('spec', [ 'files', 'binary', 'service' ], function () {
-    return gulp.src('assets/spec')
-    .pipe(rpm.spec())
-    .pipe(gulp.dest(rpm.buildDir_SPECS));
+  return gulp.src('assets/spec')
+  .pipe(rpm.spec())
+  .pipe(gulp.dest(rpm.buildDir_SPECS));
 });
 
 gulp.task('build', [ 'spec' ], rpm.buildTask());
