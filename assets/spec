@@ -27,7 +27,7 @@ BuildRequires: systemd
 %pre
 getent group {{service.group}} >/dev/null || groupadd -r {{service.group}}
 getent passwd {{service.user}} >/dev/null || \
-    useradd -r -g {{service.group}} -d {{installDir}} -s /sbin/nologin \
+    useradd -r -g {{service.group}} -d {{installDir}} -s /sbin/nologin {{service.user}}
 exit 0
 
 %post
