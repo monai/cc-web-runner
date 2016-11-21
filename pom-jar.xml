@@ -10,7 +10,7 @@
     <parent>
         <groupId>com.github.monai</groupId>
         <artifactId>cc-web-runner-parent</artifactId>
-        <version>1.0.8</version>
+        <version>1.0.9</version>
         <relativePath>pom.xml</relativePath>
     </parent>
 
@@ -40,10 +40,11 @@
                             <artifactSet>
                                 <excludes>
                                     <exclude>args4j:args4j:jar:</exclude>
-                                    <exclude>com.google.guava:guava:jar:</exclude>
-                                    <exclude>com.google.code.gson:gson:jar:</exclude>
-                                    <exclude>com.google.protobuf:protobuf-java:jar:</exclude>
                                     <exclude>com.google.code.findbugs:jsr305:jar:</exclude>
+                                    <exclude>com.google.code.gson:gson:jar:</exclude>
+                                    <exclude>com.google.guava:guava:jar:</exclude>
+                                    <exclude>com.google.jsinterop:jsinterop-annotations:jar:</exclude>
+                                    <exclude>com.google.protobuf:protobuf-java:jar:</exclude>
                                 </excludes>
                             </artifactSet>
                         </configuration>
