@@ -44,7 +44,7 @@ Request and response content types are `application/json`.
 
 ### GET /status
 
-Returns Closure Compiler versions.
+Returns Closure Compiler version.
 
 Response:
 
@@ -71,7 +71,7 @@ Returns default externs.
 
 Response:
 
-- `externs` Array - is of type List&lt;[SourceFile](https://github.com/google/closure-compiler/blob/master/src/com/google/javascript/jscomp/SourceFile.java)&gt;, array of extern files
+- `externs` Array - is of type List&lt;[SourceFile](https://github.com/google/closure-compiler/blob/master/src/com/google/javascript/jscomp/SourceFile.java)&gt;, an array of extern files
 
 ### POST /compile
 
@@ -88,14 +88,14 @@ Request:
 
 Query parameters:
 
-- `?debug` - whether return error error messages.
+- `?debug` Boolean - whether to return error messages
 
 Response:
 
 - `result` Object - is of type [Result](https://github.com/google/closure-compiler/blob/v20160208/src/com/google/javascript/jscomp/Result.java), compilations results
 - `source` String - compiled source
 - `status` String - SUCCESS|ERROR
-- `message` String - error message if status is 'ERROR'
+- `message` String - error message if the status is 'ERROR'
 - `exception` Object - is of type Throwable, occurred exception
 
 ## License
