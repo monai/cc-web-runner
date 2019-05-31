@@ -24,9 +24,9 @@ public class GenericExceptionMapper implements ExceptionMapper<JsonMappingExcept
   public Response toResponse(JsonMappingException ex) {
     Logger.error(ex.getCause());
     return status(getStatus(ex))
-            .entity(new ErrorResponse(ex, ui.getQueryParameters().containsKey("debug")))
-            .type(MediaType.APPLICATION_JSON)
-            .build();
+        .entity(new ErrorResponse(ex, ui.getQueryParameters().containsKey("debug")))
+        .type(MediaType.APPLICATION_JSON)
+        .build();
   }
 
   private int getStatus(Throwable ex) {

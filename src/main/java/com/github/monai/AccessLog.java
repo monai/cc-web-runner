@@ -19,10 +19,10 @@ public class AccessLog implements RequestLog {
 
   private String formatResponse(Response response) {
     return String.format("%s[%s %d %s]@%x",
-            response.getClass().getSimpleName(),
-            response.getHttpChannel().getRequest().getHttpVersion(),
-            response.getStatus(),
-            response.getReason(),
-            response.hashCode());
+        response.getClass().getSimpleName(),
+        response.getHttpChannel().getRequest().getHttpVersion(),
+        response.getStatus(),
+        response.getReason(),
+        response.hashCode());
   }
 }
