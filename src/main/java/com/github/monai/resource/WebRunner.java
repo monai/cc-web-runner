@@ -5,6 +5,7 @@ import com.github.monai.Application;
 import com.github.monai.entity.CompilerRequest;
 import com.github.monai.entity.CompilerResponse;
 import com.github.monai.entity.Optimizations;
+import com.github.monai.entity.OptionsRequest;
 import com.google.javascript.jscomp.*;
 import com.google.javascript.jscomp.Compiler;
 
@@ -43,6 +44,25 @@ public class WebRunner {
     }
 
     out.put("options", options);
+
+    return out;
+  }
+
+  @POST
+  @Path("/options")
+  public HashMap<String, Object> options(OptionsRequest request) {
+    HashMap<String, Object> out = new HashMap<>();
+
+    if (null == request) {
+      out.put("options", new CompilerOptions());
+      return out;
+    }
+
+    if (null != request.optimizations) {
+      applyOptimizations(request.optimizations, request.options);
+    }
+
+    out.put("options", request.options);
 
     return out;
   }
