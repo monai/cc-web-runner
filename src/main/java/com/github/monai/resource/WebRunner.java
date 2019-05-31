@@ -29,10 +29,11 @@ public class WebRunner {
 
   @GET
   @Path("/options")
-  public HashMap<String, Object> options(@QueryParam("level") CompilationLevel level,
-                                        @QueryParam("debug") @DefaultValue("false") boolean debug,
-                                        @QueryParam("typeBased") @DefaultValue("false") boolean typeBased,
-                                        @QueryParam("wrappedOutput") @DefaultValue("false") boolean wrappedOutput) throws IOException {
+  public HashMap<String, Object> options(
+          @QueryParam("level") CompilationLevel level,
+          @QueryParam("debug") @DefaultValue("false") boolean debug,
+          @QueryParam("typeBased") @DefaultValue("false") boolean typeBased,
+          @QueryParam("wrappedOutput") @DefaultValue("false") boolean wrappedOutput) {
     HashMap<String, Object> out = new HashMap<>();
 
     CompilerOptions options = new CompilerOptions();
@@ -59,12 +60,11 @@ public class WebRunner {
 
   @POST
   @Path("/compile")
-  public CompilerResponse compile(CompilerRequest request) throws IOException {
+  public CompilerResponse compile(CompilerRequest request) {
     Optimizations optim = request.optimizations;
 
     if (null != optim && null != optim.level) {
-      if (CompilationLevel.ADVANCED_OPTIMIZATIONS == optim.level
-              || request.options.getLanguageIn().isEs6OrHigher()) {
+      if (CompilationLevel.ADVANCED_OPTIMIZATIONS == optim.level) {
         CompilerOptions.Environment env = request.options.getEnvironment();
         request.externs.addAll(Application.defaultExterns.externs.get(env));
       }
@@ -72,7 +72,7 @@ public class WebRunner {
       applyOptimizations(optim, request.options);
     }
 
-    Compiler compiler = new Compiler(new VoidErrorManager());
+    Compiler compiler = new Compiler();
     Result result = compiler.compile(request.externs, request.sources, request.options);
     String source = compiler.toSource();
 
@@ -93,13 +93,5 @@ public class WebRunner {
     if (optim.wrappedOutput) {
       optim.level.setWrappedOutputOptimizations(options);
     }
-  }
-
-  private class VoidErrorManager extends BasicErrorManager {
-    @Override
-    public void println(CheckLevel level, JSError error) {}
-
-    @Override
-    protected void printSummary() {}
   }
 }

@@ -1,17 +1,13 @@
 package com.github.monai;
 
-import com.github.monai.converter.CharsetConverter;
-import com.github.monai.converter.JSErrorConverter;
-import com.github.monai.converter.SourceFileConverter;
-import com.owlike.genson.Genson;
-import com.owlike.genson.GensonBuilder;
-import com.owlike.genson.ext.jaxrs.GensonJaxRSFeature;
+import com.github.monai.json.MarshallingFeature;
+import com.google.javascript.jscomp.Compiler;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.servlet.ServletContainer;
-import org.pmw.tinylog.Logger;
+import org.tinylog.Logger;
 
 import javax.ws.rs.ApplicationPath;
 import java.io.IOException;
@@ -31,17 +27,9 @@ public class Application extends ResourceConfig {
   }
 
   public Application() {
-    Genson genson = new GensonBuilder()
-            .useIndentation(true)
-            .useConstructorWithArguments(true)
-            .withConverters(new CharsetConverter())
-            .withConverters(new SourceFileConverter())
-            .withConverters(new JSErrorConverter())
-            .create();
-
     packages("com.github.monai.resource");
-    register(new GensonJaxRSFeature().use(genson));
     register(GenericExceptionMapper.class);
+    register(MarshallingFeature.class);
   }
 
   public static void main(String[] args) throws Exception {
@@ -61,8 +49,8 @@ public class Application extends ResourceConfig {
     context.addServlet(servlet, "/*");
 
     servlet.setInitParameter(
-            "jersey.config.server.provider.classnames",
-            Application.class.getCanonicalName());
+        "jersey.config.server.provider.classnames",
+        Application.class.getCanonicalName());
 
     try {
       server.start();

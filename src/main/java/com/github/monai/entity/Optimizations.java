@@ -1,7 +1,7 @@
 package com.github.monai.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.javascript.jscomp.CompilationLevel;
-import com.owlike.genson.annotation.JsonProperty;
 
 public class Optimizations {
   public final CompilationLevel level;

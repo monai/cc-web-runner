@@ -1,0 +1,27 @@
+package com.github.monai.json;
+
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.ser.std.StdSerializer;
+import com.google.javascript.jscomp.ConformanceConfig;
+import com.google.protobuf.util.JsonFormat;
+
+import java.io.IOException;
+
+public class ConformanceConfigSerializer extends StdSerializer<ConformanceConfig> {
+    public ConformanceConfigSerializer() {
+        this(null);
+    }
+
+    public ConformanceConfigSerializer(Class<ConformanceConfig> t) {
+        super(t);
+    }
+
+    @Override
+    public void serialize(ConformanceConfig value,
+                          JsonGenerator jgen,
+                          SerializerProvider provider) throws IOException {
+
+        jgen.writeObject(JsonFormat.printer().print(value));
+    }
+}

@@ -1,6 +1,7 @@
 package com.github.monai.entity;
 
-import com.owlike.genson.annotation.JsonProperty;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.ws.rs.core.Response;
 

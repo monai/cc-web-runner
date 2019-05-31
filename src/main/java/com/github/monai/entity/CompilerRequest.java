@@ -1,8 +1,8 @@
 package com.github.monai.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.javascript.jscomp.CompilerOptions;
 import com.google.javascript.jscomp.SourceFile;
-import com.owlike.genson.annotation.JsonProperty;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,7 +1,7 @@
 package com.github.monai.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.javascript.jscomp.Result;
-import com.owlike.genson.annotation.JsonProperty;
 
 public class CompilerResponse extends AbstractResponse {
   public final Result result;

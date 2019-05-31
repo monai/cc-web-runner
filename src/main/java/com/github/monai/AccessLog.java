@@ -3,18 +3,17 @@ package com.github.monai;
 import org.eclipse.jetty.server.Request;
 import org.eclipse.jetty.server.RequestLog;
 import org.eclipse.jetty.server.Response;
-import org.pmw.tinylog.Level;
-import org.pmw.tinylog.Logger;
+import org.tinylog.Logger;
 
 public class AccessLog implements RequestLog {
   @Override
   public void log(Request request, Response response) {
     Logger.info(request);
 
-    if (Logger.getLevel().compareTo(Level.DEBUG) == 1) {
-      Logger.info(formatResponse(response));
-    } else {
+    if (Logger.isDebugEnabled()) {
       Logger.debug(response.toString());
+    } else {
+      Logger.info(formatResponse(response));
     }
   }
 
