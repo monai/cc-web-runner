@@ -1,3 +1,0 @@
-#!/bin/sh
-
-/usr/bin/env java -jar /usr/libexec/{{name}}/cc-web-runner-standalone-{{version}}.jar
