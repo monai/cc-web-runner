@@ -6,7 +6,7 @@ import com.google.javascript.jscomp.WarningsGuard;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ComposeWarningsGuardMixIn {
+abstract public class ComposeWarningsGuardMixIn {
   @JsonDeserialize(keyUsing = WarningsGuardMapKeyDeserializer.class)
   private Map<WarningsGuard, Integer> orderOfAddition = new HashMap<>();
 }
