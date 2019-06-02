@@ -10,6 +10,13 @@ public class CompilationLevelOptions {
   public final Boolean useTypesForOptimization;
   public final Boolean assumeFunctionWrapper;
 
+  public CompilationLevelOptions() {
+    this.compilationLevel = CompilationLevel.fromString("SIMPLE");
+    this.debug = false;
+    this.useTypesForOptimization = false;
+    this.assumeFunctionWrapper = false;
+  }
+
 
   public CompilationLevelOptions(@JsonProperty("compilationLevel") CompilationLevel compilationLevel,
                                  @JsonProperty("debug") Boolean debug,

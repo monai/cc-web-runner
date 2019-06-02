@@ -11,7 +11,7 @@ public class OptionsRequest {
   public OptionsRequest(@JsonProperty("compilationLevelOptions") CompilationLevelOptions compilationLevelOptions,
                         @JsonProperty("warningLevels") WarningLevels warningLevels,
                         @JsonProperty("options") CompilerOptions options) {
-    this.compilationLevelOptions = compilationLevelOptions;
+    this.compilationLevelOptions = null != compilationLevelOptions ? compilationLevelOptions : new CompilationLevelOptions();
     this.options = null != options ? options : new CompilerOptions();
     this.warningLevels = null != warningLevels ? warningLevels : new WarningLevels();
   }

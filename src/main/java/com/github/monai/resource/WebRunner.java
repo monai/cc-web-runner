@@ -38,9 +38,7 @@ public class WebRunner {
       return out;
     }
 
-    if (null != request.compilationLevelOptions) {
-      request.compilationLevelOptions.setOptions(request.options);
-    }
+    request.compilationLevelOptions.setOptions(request.options);
     request.warningLevels.setOptions(request.options);
 
     out.put("options", request.options);
@@ -62,15 +60,13 @@ public class WebRunner {
   @POST
   @Path("/compile")
   public CompilerResponse compile(CompilerRequest request) {
-    CompilationLevelOptions compilationLevelOptions = request.compilationLevelOptions;
-
-    if (null != compilationLevelOptions && null != compilationLevelOptions.compilationLevel) {
-      if (CompilationLevel.ADVANCED_OPTIMIZATIONS == compilationLevelOptions.compilationLevel) {
+    if (null != request.compilationLevelOptions && null != request.compilationLevelOptions.compilationLevel) {
+      if (CompilationLevel.ADVANCED_OPTIMIZATIONS == request.compilationLevelOptions.compilationLevel) {
         CompilerOptions.Environment env = request.options.getEnvironment();
         request.externs.addAll(Application.defaultExterns.externs.get(env));
       }
 
-      compilationLevelOptions.setOptions(request.options);
+      request.compilationLevelOptions.setOptions(request.options);
       request.warningLevels.setOptions(request.options);
     }
 
