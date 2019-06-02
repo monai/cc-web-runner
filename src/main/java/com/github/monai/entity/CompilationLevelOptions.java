@@ -6,11 +6,11 @@ import com.google.javascript.jscomp.CompilerOptions;
 
 public class CompilationLevelOptions {
   public final CompilationLevel compilationLevel;
-  public final Boolean debug;
-  public final Boolean useTypesForOptimization;
-  public final Boolean assumeFunctionWrapper;
+  private final Boolean debug;
+  private final Boolean useTypesForOptimization;
+  private final Boolean assumeFunctionWrapper;
 
-  public CompilationLevelOptions() {
+  CompilationLevelOptions() {
     this.compilationLevel = CompilationLevel.fromString("SIMPLE");
     this.debug = false;
     this.useTypesForOptimization = false;

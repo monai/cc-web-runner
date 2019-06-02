@@ -2,7 +2,6 @@ package com.github.monai.resource;
 
 
 import com.github.monai.Application;
-import com.github.monai.entity.CompilationLevelOptions;
 import com.github.monai.entity.CompilerRequest;
 import com.github.monai.entity.CompilerResponse;
 import com.github.monai.entity.OptionsRequest;
@@ -60,7 +59,7 @@ public class WebRunner {
   @POST
   @Path("/compile")
   public CompilerResponse compile(CompilerRequest request) {
-    if (null != request.compilationLevelOptions && null != request.compilationLevelOptions.compilationLevel) {
+    if (null != request.compilationLevelOptions.compilationLevel) {
       if (CompilationLevel.ADVANCED_OPTIMIZATIONS == request.compilationLevelOptions.compilationLevel) {
         CompilerOptions.Environment env = request.options.getEnvironment();
         request.externs.addAll(Application.defaultExterns.externs.get(env));

@@ -9,11 +9,11 @@ import com.google.javascript.jscomp.SourceFile;
 import java.io.IOException;
 
 public class SourceFileDeserializer extends StdDeserializer<SourceFile> {
-  public SourceFileDeserializer() {
+  SourceFileDeserializer() {
     this(null);
   }
 
-  public SourceFileDeserializer(Class<SourceFile> t) {
+  private SourceFileDeserializer(Class<SourceFile> t) {
     super(t);
   }
 

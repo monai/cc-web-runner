@@ -9,11 +9,11 @@ import com.google.protobuf.TextFormat;
 import java.io.IOException;
 
 public class ConformanceConfigSerializer extends StdSerializer<ConformanceConfig> {
-    public ConformanceConfigSerializer() {
+    ConformanceConfigSerializer() {
         this(null);
     }
 
-    public ConformanceConfigSerializer(Class<ConformanceConfig> t) {
+    private ConformanceConfigSerializer(Class<ConformanceConfig> t) {
         super(t);
     }
 

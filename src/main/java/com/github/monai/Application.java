@@ -1,7 +1,6 @@
 package com.github.monai;
 
 import com.github.monai.json.MarshallingFeature;
-import com.google.javascript.jscomp.Compiler;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
@@ -26,7 +25,7 @@ public class Application extends ResourceConfig {
     defaultExterns = externs;
   }
 
-  public Application() {
+  private Application() {
     packages("com.github.monai.resource");
     register(GenericExceptionMapper.class);
     register(MarshallingFeature.class);
