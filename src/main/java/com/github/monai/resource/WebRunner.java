@@ -2,9 +2,9 @@ package com.github.monai.resource;
 
 
 import com.github.monai.Application;
+import com.github.monai.entity.CompilationLevelOptions;
 import com.github.monai.entity.CompilerRequest;
 import com.github.monai.entity.CompilerResponse;
-import com.github.monai.entity.Optimizations;
 import com.github.monai.entity.OptionsRequest;
 import com.google.javascript.jscomp.*;
 import com.google.javascript.jscomp.Compiler;
@@ -28,26 +28,6 @@ public class WebRunner {
     return out;
   }
 
-  @GET
-  @Path("/options")
-  public HashMap<String, Object> options(
-          @QueryParam("level") CompilationLevel level,
-          @QueryParam("debug") @DefaultValue("false") boolean debug,
-          @QueryParam("typeBased") @DefaultValue("false") boolean typeBased,
-          @QueryParam("wrappedOutput") @DefaultValue("false") boolean wrappedOutput) {
-    HashMap<String, Object> out = new HashMap<>();
-
-    CompilerOptions options = new CompilerOptions();
-    if (null != level) {
-      Optimizations optim = new Optimizations(level, debug, typeBased, wrappedOutput);
-      applyOptimizations(optim, options);
-    }
-
-    out.put("options", options);
-
-    return out;
-  }
-
   @POST
   @Path("/options")
   public HashMap<String, Object> options(OptionsRequest request) {
@@ -58,8 +38,8 @@ public class WebRunner {
       return out;
     }
 
-    if (null != request.optimizations) {
-      applyOptimizations(request.optimizations, request.options);
+    if (null != request.compilationLevelOptions) {
+      request.compilationLevelOptions.setOptions(request.options);
     }
 
     out.put("options", request.options);
@@ -81,15 +61,15 @@ public class WebRunner {
   @POST
   @Path("/compile")
   public CompilerResponse compile(CompilerRequest request) {
-    Optimizations optim = request.optimizations;
+    CompilationLevelOptions compilationLevelOptions = request.compilationLevelOptions;
 
-    if (null != optim && null != optim.level) {
-      if (CompilationLevel.ADVANCED_OPTIMIZATIONS == optim.level) {
+    if (null != compilationLevelOptions && null != compilationLevelOptions.compilationLevel) {
+      if (CompilationLevel.ADVANCED_OPTIMIZATIONS == compilationLevelOptions.compilationLevel) {
         CompilerOptions.Environment env = request.options.getEnvironment();
         request.externs.addAll(Application.defaultExterns.externs.get(env));
       }
 
-      applyOptimizations(optim, request.options);
+      compilationLevelOptions.setOptions(request.options);
     }
 
     Compiler compiler = new Compiler();
@@ -97,21 +77,5 @@ public class WebRunner {
     String source = compiler.toSource();
 
     return new CompilerResponse(result, source);
-  }
-
-  private void applyOptimizations(Optimizations optim, CompilerOptions options) {
-    optim.level.setOptionsForCompilationLevel(options);
-
-    if (optim.debug) {
-      optim.level.setDebugOptionsForCompilationLevel(options);
-    }
-
-    if (optim.typeBased) {
-      optim.level.setTypeBasedOptimizationOptions(options);
-    }
-
-    if (optim.wrappedOutput) {
-      optim.level.setWrappedOutputOptimizations(options);
-    }
   }
 }

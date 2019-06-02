@@ -8,16 +8,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CompilerRequest {
-  public final Optimizations optimizations;
+  public final CompilationLevelOptions compilationLevelOptions;
   public final CompilerOptions options;
   public final List<SourceFile> externs;
   public final List<SourceFile> sources;
 
-  public CompilerRequest(@JsonProperty("optimizations") Optimizations optimizations,
+  public CompilerRequest(@JsonProperty("compilationLevel") CompilationLevelOptions compilationLevelOptions,
                          @JsonProperty("options") CompilerOptions options,
                          @JsonProperty("externs") List<SourceFile> externs,
                          @JsonProperty("sources") List<SourceFile> sources) {
-    this.optimizations = optimizations;
+    this.compilationLevelOptions = compilationLevelOptions;
     this.options = null != options ? options : new CompilerOptions();
     this.externs = null != externs ? externs : new ArrayList<>();
     this.sources = null != sources ? sources : new ArrayList<>();

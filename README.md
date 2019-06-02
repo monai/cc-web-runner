@@ -27,7 +27,7 @@ Request:
 
 ```bash
 curl -X POST -H "Content-Type: application/json" -d '{
-  "optimizations": {
+  "compilationLevelOptions": {
     "level": "SIMPLE_OPTIMIZATIONS"
   },
   "sources": [{
@@ -52,7 +52,7 @@ Response:
 
 ### GET /options
 
-Returns default options with given optimizations.
+Returns default options with given compilationLevelOptions.
 
 Query parameters:
 
@@ -79,7 +79,7 @@ Request:
 
 - `externs` Array - `[{ fileName: String, code: String }]`, array of extern files
 - `sources` Array - `[{ fileName: String, code: String }]`, array of source files to compile
-- `optimizations`
+- `compilationLevelOptions`
   - `level` String - is of type [CompilationLevel](https://github.com/google/closure-compiler/blob/29bbd198f0bf4967e4f406674b3eaf302a1f16a4/src/com/google/javascript/jscomp/CompilationLevel.java), compilation level
   - `debug` Boolean - whether to call `setDebugOptionsForCompilationLevel`
   - `typeBased` Boolean - whether to call `setTypeBasedOptimizationOptions`
