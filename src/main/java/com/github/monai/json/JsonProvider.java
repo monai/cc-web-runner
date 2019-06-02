@@ -10,7 +10,6 @@ import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.datatype.guava.GuavaModule;
 import com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider;
 import com.google.javascript.jscomp.CompilerOptions;
-import com.google.javascript.jscomp.ComposeWarningsGuard;
 import com.google.javascript.jscomp.ConformanceConfig;
 import com.google.javascript.jscomp.SourceFile;
 
@@ -33,7 +32,6 @@ public class JsonProvider extends JacksonJaxbJsonProvider {
 
     mapper.addMixIn(CompilerOptions.AliasTransformationHandler.class, AliasTransformationHandlerMixIn.class);
     mapper.addMixIn(CompilerOptions.class, CompilerOptionsMixIn.class);
-    mapper.addMixIn(ComposeWarningsGuard.class, ComposeWarningsGuardMixIn.class);
 
     mapper.registerModule(new GuavaModule());
 

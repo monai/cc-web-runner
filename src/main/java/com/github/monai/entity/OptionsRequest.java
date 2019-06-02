@@ -5,11 +5,14 @@ import com.google.javascript.jscomp.CompilerOptions;
 
 public class OptionsRequest {
   public final CompilationLevelOptions compilationLevelOptions;
+  public final WarningLevels warningLevels;
   public final CompilerOptions options;
 
   public OptionsRequest(@JsonProperty("compilationLevelOptions") CompilationLevelOptions compilationLevelOptions,
+                        @JsonProperty("warningLevels") WarningLevels warningLevels,
                         @JsonProperty("options") CompilerOptions options) {
     this.compilationLevelOptions = compilationLevelOptions;
     this.options = null != options ? options : new CompilerOptions();
+    this.warningLevels = null != warningLevels ? warningLevels : new WarningLevels();
   }
 }

@@ -41,6 +41,7 @@ public class WebRunner {
     if (null != request.compilationLevelOptions) {
       request.compilationLevelOptions.setOptions(request.options);
     }
+    request.warningLevels.setOptions(request.options);
 
     out.put("options", request.options);
 
@@ -70,6 +71,7 @@ public class WebRunner {
       }
 
       compilationLevelOptions.setOptions(request.options);
+      request.warningLevels.setOptions(request.options);
     }
 
     Compiler compiler = new Compiler();

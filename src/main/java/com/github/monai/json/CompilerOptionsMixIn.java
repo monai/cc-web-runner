@@ -2,6 +2,7 @@ package com.github.monai.json;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.javascript.jscomp.ComposeWarningsGuard;
 import com.google.javascript.jscomp.RenamingMap;
 
 import java.util.Map;
@@ -13,4 +14,7 @@ abstract class CompilerOptionsMixIn {
 
   @JsonProperty("idGenerators")
   public abstract void setIdGenerators(Set<String> idGenerators);
+
+  @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+  private ComposeWarningsGuard warningsGuard;
 }
