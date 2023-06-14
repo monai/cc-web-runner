@@ -15,7 +15,7 @@
 
         <com.fasterxml.jackson.version>2.9.9</com.fasterxml.jackson.version>
         <com.google.closure-compiler.version>v20190513</com.google.closure-compiler.version>
-        <com.google.guava.version>27.1-jre</com.google.guava.version>
+        <com.google.guava.version>32.0.0-jre</com.google.guava.version>
         <com.google.protobuf.version>3.8.0</com.google.protobuf.version>
         <org.eclipse.jetty.version>9.4.18.v20190429</org.eclipse.jetty.version>
         <org.glassfish.jersey.version>2.26</org.glassfish.jersey.version>
